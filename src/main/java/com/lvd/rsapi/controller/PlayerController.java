@@ -18,11 +18,15 @@ public class PlayerController {
 
     public static final String url = "api/stats";
 
-    @Autowired
-    private PlayerService playerService;
+    private final PlayerService playerService;
+
+    private final RestTemplate restTemplate;
 
     @Autowired
-    private RestTemplate restTemplate;
+    public PlayerController(PlayerService playerService, RestTemplate restTemplate) {
+        this.playerService = playerService;
+        this.restTemplate = restTemplate;
+    }
 
     @Value("${uri}")
     private String uri;
