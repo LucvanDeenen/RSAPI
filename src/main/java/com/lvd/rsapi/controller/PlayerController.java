@@ -38,14 +38,12 @@ public class PlayerController {
         // that the returned value can give a 404 error
         try {
             final var result = restTemplate.getForObject(uri + name, String.class);
-
-            if (result != null) {
-                final var player = playerService.formatResult(result);
-                return new ResponseEntity<>(player, HttpStatus.OK);
-            } else {
+            if (result == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-
+            
+            final var player = playerService.formatResult(result);
+            return new ResponseEntity<>(player, HttpStatus.OK);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
